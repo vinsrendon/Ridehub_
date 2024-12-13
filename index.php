@@ -18,7 +18,13 @@ $routesAdmin =[
 
 //GLOBAL ROUTES
 $routesGlobal = [
-    '/' => 'public/views/landing.php'
+    '/' => 'public/views/landing.php',
+    '/register' => 'public/views/register.php',
+    '/contact' => 'public/views/contact.php',
+    '/about' => 'public/views/aboutUs.php',
+    '/blogs' => 'public/views/blogs.php',
+    '/policy' => 'public/views/privacyPolicy.php',
+    '/terms' => 'public/views/terms.php'
 ];
 
 if(isset($_SESSION['isLoggedin']) && isset($_SESSION['Role'])){
@@ -49,10 +55,12 @@ if(isset($_SESSION['isLoggedin']) && isset($_SESSION['Role'])){
     }
 }
 else{
-    if(array_key_exists($uri,$routesGlobal) 
-    || array_key_exists($uri,$routes) 
+    if(array_key_exists($uri,$routes) 
     || array_key_exists($uri,$routesAdmin)){
         require $routesGlobal['/'];
+    }
+    elseif(array_key_exists($uri,$routesGlobal)){
+        require $routesGlobal[$uri];
     }
     else{
         require 'public/404.php';    
